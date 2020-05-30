@@ -41,7 +41,19 @@ const WorkoutSchema = new Schema(
                 validate: [({ value }) => value > 0, "Distance must be greater than zero."]
               },
           }
-        ]
+        ]}, {
+          toJSON: {
+            virtuals: true
+          }
+        },{
+          collection: 'workout'
+        });
+
+WorkoutSchema.virtual("totalDuration").get(function() {
+  //add all of the exercises from the array down to just the sum of all of their durations
+  return this.exercises.reduce((total, exercise) => {
+    return total + exercise.duration;
+  }, 0);
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
