@@ -52,10 +52,10 @@ module.exports = function(app) {
         {
           $push: {exercises: req.body}  
         },{
-          new: true,runValidators:true
-        }).then(dbObject => {
-          console.log(dbObject);
-          res.json(dbObject);
+          new: true, runValidators:true
+        }).then(dbWorkout => {
+          console.log(dbWorkout);
+          res.json(dbWorkout);
         }).catch(err => {
           res.json(err);
         });
